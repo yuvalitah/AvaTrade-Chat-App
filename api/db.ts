@@ -9,9 +9,12 @@ export const initializeDBConnection = () => {
   const dbHost = process.env.DATABASE_HOST;
   const dbPort = process.env.DATABASE_PORT || "3307";
 
-  return new Sequelize(dbName, dbUsername, dbPassword, {
+  const sequelize = new Sequelize(dbName, dbUsername, dbPassword, {
     host: dbHost,
     dialect: "mysql",
     port: parseInt(dbPort),
   });
+  sequelize.sync();
+
+  return sequelize;
 };
